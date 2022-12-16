@@ -2,7 +2,7 @@
 
 .bgimage {
     height: 100vh;
-    background-image: linear-gradient(to right, #ffffff, #f2ebfe, #f3eaff, #dac0ff, #690cb0);
+    background-image: url("https://img.freepik.com/free-vector/pastel-ombre-background-pink-purple_53876-120750.jpg?w=2000");
     background-size: cover;
 }
 
