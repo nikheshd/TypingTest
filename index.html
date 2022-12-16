@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="typingtest.css">
+</head>
+
+<body class="bgimage">
+    <h1 class="m-4">Speed Typing Test</h1>
+    <p class="m-4">On your fingers lets set Go!</p>
+    <div id="speedTypingTest">
+        <div class="d-flex flex-row ml-5">
+            <img class="img" src="https://assets.ccbp.in/frontend/dynamic-webapps/clock-img.png">
+            <p id="timer"></p>
+        </div>
+        <div class="card">
+            <p id="quoteDisplay" class="m-4"></p>
+            <textarea id="quoteInput" class="m-4" rows="8" cols="55" placeholder="Type here!!" onpaste="return false" ondrop="return false"></textarea>
+        </div>
+        <p id="result"></p>
+        <div class="d-flex flex-row">
+            <button id="submitBtn">Submit</button>
+            <button id="resetBtn">Reset</button>
+        </div>
+    </div>
+    <div class="d-none" id="spinner">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <script src="typingtest.js"></script>
+</body>
+</html>
