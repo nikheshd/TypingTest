@@ -16,7 +16,7 @@ let submitBtn = document.getElementById("submitBtn");
 let resetBtn = document.getElementById("resetBtn");
 let spinner = document.getElementById("spinner");
 let speedTypingTest = document.getElementById("speedTypingTest");
-let countdown = 0;
+let countdown = -1;
 let curquote;
 
 function countWords(str) {
@@ -38,6 +38,8 @@ function getquote() {
             quoteDisplay.textContent = jsonData.content;
             curquote = jsonData.content;
         });
+}
+function resetting() {
     result.textContent = "";
     quoteInput.value = "";
     clearInterval(intervalId);
@@ -52,6 +54,7 @@ resetBtn.addEventListener("click", function () {
     spinner.classList.remove("d-none");
     speedTypingTest.classList.add("d-none");
     getquote();
+    resetting();
 });
 
 function submitInput() {
@@ -78,9 +81,8 @@ quoteInput.addEventListener("keydown", function (event) {
     }
 });
 
+getquote();
 let intervalId = setInterval(function () {
     countdown = countdown + 1;
     timer.textContent = countdown + " s";
 }, 1000);
-
-getquote();
