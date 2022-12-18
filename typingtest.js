@@ -16,8 +16,11 @@ let submitBtn = document.getElementById("submitBtn");
 let resetBtn = document.getElementById("resetBtn");
 let spinner = document.getElementById("spinner");
 let speedTypingTest = document.getElementById("speedTypingTest");
+let speedel = document.getElementById("speed");
 let countdown = -1;
+let hspeedel = document.getElementById("hspeed");
 let curquote;
+let hspeed = 0;
 
 function countWords(str) {
     const arr = str.split(' ');
@@ -46,11 +49,12 @@ function resetting() {
     countdown = -1;
     intervalId = setInterval(function () {
         countdown = countdown + 1;
-        timer.textContent = countdown + " s";
+        timer.textContent = countdown;
     }, 1000);
 }
 
 resetBtn.addEventListener("click", function () {
+    speedel.textContent = "- WPM";
     spinner.classList.remove("d-none");
     speedTypingTest.classList.add("d-none");
     getquote();
@@ -64,8 +68,22 @@ function submitInput() {
         } else {
             clearInterval(intervalId);
             let wordscnt = countWords(quoteInput.value);
-            result.textContent = "You typed in " + countdown + " seconds. TYPING SPEED: " + Math.round(wordscnt * 600 /countdown) / 10 + "WPM";
-            countdown = -1;
+            result.textContent = "You typed in " + countdown + " seconds.";
+            let curSpeed = wordscnt * 60 / countdown;
+            let speed = 0;
+            let displaySpeedId = setInterval(function () {
+                speed = speed + 1;
+                speedel.textContent = speed + " WPM";
+                if (hspeed < speed) {
+                    hspeed = speed;
+                    hspeedel.textContent = "*" + hspeed + " WPM";
+                }
+                if (speed > curSpeed) {
+                    hspeedel.textContent = hspeed + " WPM";
+                    clearInterval(displaySpeedId);
+                }
+            }, 10);
+            countdown = -1
         }
     } else {
         result.textContent = "You typed incorrect sentence.";
@@ -84,5 +102,5 @@ quoteInput.addEventListener("keydown", function (event) {
 getquote();
 let intervalId = setInterval(function () {
     countdown = countdown + 1;
-    timer.textContent = countdown + " s";
+    timer.textContent = countdown;
 }, 1000);

@@ -9,21 +9,37 @@
 </head>
 
 <body class="bgimage">
-    <h1 class="m-4">Speed Typing Test</h1>
-    <p class="m-4">On your fingers lets set Go!</p>
-    <div id="speedTypingTest">
+    <h1 class="m-4" style="text-align: center">Speed Typing Test</h1>
+    <div>
+        <p class="m-4 pl-5">On your fingers get set Go!</p>
         <div class="d-flex flex-row ml-5">
             <img class="img" src="https://assets.ccbp.in/frontend/dynamic-webapps/clock-img.png">
-            <p id="timer"></p>
+            <p class="timer"><span id="timer"></span> seconds</p>
+            <div class="resultnum d-flex flex-row">
+                <div>
+                    <p class="mr-5">
+                        Current Typing Speed <br />
+                        <span id="speed" class="speednum">- WPM</span>
+                    </p>
+                </div>
+                <div class="ml-5">
+                    <p>
+                        Highest Typing Speed <br />
+                        <span id="hspeed" class="speednum">- WPM</span>
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="card">
-            <p id="quoteDisplay" class="m-4"></p>
-            <textarea id="quoteInput" class="m-4" rows="8" cols="55" placeholder="Type here!!" onpaste="return false" ondrop="return false"></textarea>
-        </div>
-        <p id="result"></p>
-        <div class="d-flex flex-row">
-            <button id="submitBtn">Submit</button>
-            <button id="resetBtn">Reset</button>
+        <div id="speedTypingTest">
+            <div class="card">
+                <p id="quoteDisplay" class="m-4"></p>
+                <textarea id="quoteInput" class="m-4" rows="8" cols="55" placeholder="Type here!!" onpaste="return false" ondrop="return false"></textarea>
+            </div>
+            <p id="result"></p>
+            <div class="d-flex flex-row">
+                <button id="submitBtn">Submit</button>
+                <button id="resetBtn">Reset</button>
+            </div>
         </div>
     </div>
     <div class="d-none" id="spinner">
