@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="typingtest.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 </head>
 
 <body class="bgimage">
@@ -13,41 +14,51 @@
         <span style="font-size: 15px;">created by <a href="https://www.linkedin.com/in/nikhesh-babu/" target="_blank">Nikhesh</a></span>
     </h1>
     <div>
-        <p class="m-4 pl-5">On your fingers get set Go!</p>
-        <div class="d-flex flex-row ml-5">
-            <img class="img" src="https://assets.ccbp.in/frontend/dynamic-webapps/clock-img.png">
-            <p class="timer"><span id="timer"></span> seconds</p>
-            <div class="resultnum d-flex flex-row">
-                <div>
-                    <p class="mr-5">
-                        Current Typing Speed <br />
-                        <span id="speed" class="speednum">- WPM</span>
-                    </p>
-                </div>
-                <div class="ml-5">
-                    <p>
-                        Highest Typing Speed <br />
-                        <span id="hspeed" class="speednum">- WPM</span>
-                    </p>
-                </div>
-            </div>
+        <div class="instructions">
+            <h1 style="font-size: 20px;">Instructions: </h1>
+            <ol>
+                <li>Click Start to start the test.</li>
+                <li>Type exactly the same sentence with punctuations.</li>
+                <li>Press enter or Submit button to submit your typed sentence.</li>
+                <li>Press Reset button or 'Alt+r' to change the given sentence. This doesn't save the progress if you haven't completed the current sentence.</li>
+            </ol>
+            <p>On your fingers get set Go!</p>
+        </div>
+        <div class="result_card">
+            <p>
+                Current Typing Speed <br />
+                <span id="speed" class="speednum">- WPM</span>
+            </p>
+            <p>
+                Highest Typing Speed <br />
+                <span id="hspeed" class="speednum">- WPM</span>
+            </p>
+            <p>
+                Average Typing Speed <br />
+                <span id="avgspeed" class="speednum">- WPM</span>
+            </p>
+        </div>
+        <div id="clock">
+            <!-- <img class="img" src="https://assets.ccbp.in/frontend/dynamic-webapps/clock-img.png"> -->
+            <span style="font-size: 70px; color: rgb(136, 136, 136);" class="material-icons-outlined">timer</span>
+            <p id="timerel" class="timer"><span id="timer"></span> seconds</p>
         </div>
         <div id="speedTypingTest">
             <div class="card">
                 <p id="quoteDisplay" class="m-4"></p>
-                <textarea id="quoteInput" class="m-4" rows="8" cols="55" placeholder="Type here!!" onpaste="return false" ondrop="return false"></textarea>
+                <div class="d-none m-4" id="spinner">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <textarea onblur="this.focus()" autofocus id="quoteInput" class="m-4" rows="8" cols="55" placeholder="Type here!!" onpaste="return false" ondrop="return false"></textarea>
             </div>
             <p id="result"></p>
             <div class="d-flex flex-row">
                 <button id="submitBtn">Submit</button>
                 <button id="resetBtn">Reset</button>
-            </div>
-        </div>
-    </div>
-    <div class="d-none" id="spinner">
-        <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
             </div>
         </div>
     </div>

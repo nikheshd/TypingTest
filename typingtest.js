@@ -8,6 +8,7 @@ When the reset button is clicked, an HTTP request should be made to get a random
 When page is opened, an HTTP request should be made to get a random quotation from the given URL and the HTML paragraph element with id quoteDisplay should have the quotation received in the response.
 */
 
+let testing = false;
 let timer = document.getElementById("timer");
 let quoteDisplay = document.getElementById("quoteDisplay");
 let result = document.getElementById("result");
@@ -19,12 +20,28 @@ let speedTypingTest = document.getElementById("speedTypingTest");
 let speedel = document.getElementById("speed");
 let countdown = -1;
 let hspeedel = document.getElementById("hspeed");
+let avgspeedel = document.getElementById("avgspeed");
+let speed_data = [];
 let curquote;
 let hspeed = 0;
+let avgspeed = 0;
+let intervalId;
+resetBtn.textContent = "Start";
+timer.textContent = "0";
+quoteDisplay.textContent = "\"The sentence to be typed will be displayed here.\""
+
 
 function countWords(str) {
     const arr = str.split(' ');
     return arr.filter(word => word !== '').length;
+}
+
+function get_average(arr){
+    var sum = 0;
+    for (var i of arr) {
+        sum += i;
+    }
+    return Math.ceil(sum / arr.length);
 }
 
 function getquote() {
@@ -37,12 +54,19 @@ function getquote() {
         })
         .then(function (jsonData) {
             spinner.classList.add("d-none");
-            speedTypingTest.classList.remove("d-none");
+            quoteDisplay.classList.remove("d-none");
             quoteDisplay.textContent = jsonData.content;
             curquote = jsonData.content;
         });
 }
 function resetting() {
+    if(resetBtn.textContent=="Start"){
+        intervalId = setInterval(function () {
+            countdown = countdown + 1;
+            timer.textContent = countdown;
+        }, 1000);
+        resetBtn.textContent = "Reset";
+    }
     result.textContent = "";
     quoteInput.value = "";
     clearInterval(intervalId);
@@ -54,23 +78,27 @@ function resetting() {
 }
 
 resetBtn.addEventListener("click", function () {
+    getquote();
     speedel.textContent = "- WPM";
     spinner.classList.remove("d-none");
-    speedTypingTest.classList.add("d-none");
-    getquote();
+    quoteDisplay.classList.add("d-none");
     resetting();
 });
 
 function submitInput() {
-    if (quoteInput.value === curquote) {
+    if(testing) curquote="1 2 3 4 5";
+    if(resetBtn.textContent == "Start"){
+        result.textContent = "Press Start button to start the typing test.";
+    }else if (quoteInput.value === curquote) {
         if (countdown === -1) {
             result.textContent = "You already typed the correct sentence.";
         } else {
             clearInterval(intervalId);
             let wordscnt = countWords(quoteInput.value);
             result.textContent = "You typed in " + countdown + " seconds.";
-            let curSpeed = wordscnt * 60 / countdown;
+            let curSpeed = (wordscnt * 60 / countdown);
             let speed = 0;
+            let cur_hspeed = hspeed>curSpeed?hspeed: curSpeed;
             let displaySpeedId = setInterval(function () {
                 speed = speed + 1;
                 speedel.textContent = speed + " WPM";
@@ -79,11 +107,20 @@ function submitInput() {
                     hspeedel.textContent = "*" + hspeed + " WPM";
                 }
                 if (speed > curSpeed) {
-                    hspeedel.textContent = hspeed + " WPM";
+                    speedel.textContent = curSpeed + " WPM";
+                    hspeedel.textContent = cur_hspeed + " WPM";
+                    hspeed = cur_hspeed;
                     clearInterval(displaySpeedId);
                 }
             }, 10);
-            countdown = -1
+            speed_data.push(curSpeed);
+            let cur_avg = get_average(speed_data);
+            if(speed_data.length==1){
+                cur_avg = curSpeed;
+            }
+            avgspeed = cur_avg;
+            avgspeedel.textContent = avgspeed + " WPM";
+            countdown = -1;
         }
     } else {
         result.textContent = "You typed incorrect sentence.";
@@ -96,11 +133,15 @@ quoteInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
         submitBtn.click();
+    }else if(event.altKey && event.key === "r"){
+        event.preventDefault();
+        resetBtn.click();
     }
 });
 
-getquote();
-let intervalId = setInterval(function () {
-    countdown = countdown + 1;
-    timer.textContent = countdown;
-}, 1000);
+
+// getquote();
+// let intervalId = setInterval(function () {
+//     countdown = countdown + 1;
+//     timer.textContent = countdown;
+// }, 1000);
